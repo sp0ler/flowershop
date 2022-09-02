@@ -41,7 +41,7 @@
 
         .small-img-group{
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             position: relative;
         }
 
@@ -160,33 +160,22 @@
 
     <div class="row mt-5">
         <div class="col-lg-5 col-md-12 col-12 pb-1">
-            <img class= "img-fluid w-100 pb-1" src="/resources/images/product-9.png" id="MainImg" alt="">
+            <#list images as image>
+                <#if image.preview>
+                    <img class= "img-fluid w-100 pb-1" src="/resources/images/product-9.png" id="MainImg" alt="">
+                </#if>
+            </#list>
+
 
             <div class="small-img-group">
-                <div class="small-img-col">
-                    <img class= "small-img" width="100%" src="/resources/images/product-8.png" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img class= "small-img" width="100%" src="/resources/images/product-7.png" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img class= "small-img" width="100%" src="/resources/images/product-6.png" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img class= "small-img" width="100%" src="/resources/images/product-5.png" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img class= "small-img" width="100%" src="/resources/images/product-4.png" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img class= "small-img" width="100%" src="/resources/images/product-3.png" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img class= "small-img" width="100%" src="/resources/images/product-2.png" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img class= "small-img" width="100%" src="/resources/images/product-1.png" alt="">
-                </div>
+                <#list images as image>
+                    <#if !image.preview>
+                        <div class="small-img-col">
+                            <img class= "small-img" width="100%" src="/resources/images/${image.nameImage}" alt="">
+                        </div>
+                    </#if>
+                </#list>
+
             </div>
         </div>
 
