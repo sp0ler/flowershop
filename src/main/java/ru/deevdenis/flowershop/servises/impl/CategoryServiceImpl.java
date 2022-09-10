@@ -45,7 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public Category getCategoryByCategoryNameEng(String categoryNameEng) {
-        return categoryDAO.getCategoryByCategoryNameEng(categoryNameEng);
+        return categoryDAO.findCategoryByCategoryNameEng(categoryNameEng);
     }
 }

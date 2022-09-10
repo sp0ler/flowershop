@@ -17,4 +17,8 @@ public interface FlowerDAO extends JpaRepository<Flower, Integer> {
     @Query(value = "DELETE FROM flowers WHERE id = :id", nativeQuery = true)
     void delete(@Param("id") Integer id);
 
+    void deleteById(int id);
+
+    List<Flower> findAllByCategoryName(String categoryName);
+
 }

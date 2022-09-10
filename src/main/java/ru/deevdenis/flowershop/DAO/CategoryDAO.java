@@ -10,10 +10,6 @@ import java.util.List;
 
 @Repository
 public interface CategoryDAO extends JpaRepository<Category, Integer> {
-    @Query(
-            value = "SELECT * FROM categories WHERE category_name_eng = :categoryNameEng OR category_name = :categoryNameEng",
-            nativeQuery = true
-    )
-    Category getCategoryByCategoryNameEng(@Param("categoryNameEng") String categoryNameEng);
+    Category findCategoryByCategoryNameEng(String categoryNameEng);
 
 }
