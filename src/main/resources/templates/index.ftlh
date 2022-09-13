@@ -28,9 +28,9 @@
 
         <a href="/" class="logo"><i class="fas fa-shopping-basket"></i>.Flowers</a>
 
-        <form action="" class="search-box-container">
-            <input type="search" id="search-box" placeholder="Поиск...">
-            <label for="search-box" class="fas fa-search"></label>
+        <form action="/search" class="search-box-container" method="get">
+            <input type="search" id="search-box" placeholder="Поиск..." name="title">
+            <label for="search-box" class="fas fa-search" onclick="/search"></label>
         </form>
 
     </div>

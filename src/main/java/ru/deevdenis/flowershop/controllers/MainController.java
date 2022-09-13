@@ -2,6 +2,7 @@ package ru.deevdenis.flowershop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -175,6 +176,18 @@ public class MainController {
         model.addAttribute("numberWishlist", getCountItemsInWishlist(req));
 
         return "cart";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(@RequestParam("title") String title, Model model, HttpServletRequest req) {
+
+        model.addAttribute("numberCart", getCountItemsInCart(req));
+        model.addAttribute("numberWishlist", getCountItemsInWishlist(req));
+
+        List<Flower> result = flowerService.findAllByTitleContainsIgnoreCase(title);
+        model.addAttribute("allFlowers", result);
+
+        return "search";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)

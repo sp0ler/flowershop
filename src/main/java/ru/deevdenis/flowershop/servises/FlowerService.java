@@ -4,6 +4,7 @@ import ru.deevdenis.flowershop.models.Category;
 import ru.deevdenis.flowershop.models.Flower;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FlowerService {
     List<Flower> getAllFlowers();
@@ -17,5 +18,7 @@ public interface FlowerService {
     void deleteById(int id);
 
     List<Flower> getFlowersByCategory(String categoryName);
+
+    List<Flower> findAllByTitleContainsIgnoreCase(String title);
 }
 

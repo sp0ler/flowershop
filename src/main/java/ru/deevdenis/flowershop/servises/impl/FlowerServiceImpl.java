@@ -10,7 +10,9 @@ import ru.deevdenis.flowershop.models.Flower;
 import ru.deevdenis.flowershop.servises.FlowerService;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @NoArgsConstructor
@@ -54,5 +56,13 @@ public class FlowerServiceImpl implements FlowerService {
     public List<Flower> getFlowersByCategory(String categoryName) {
         return flowerDAO.getFlowersByCategory(categoryName);
     }
+
+    @Override
+    @Transactional
+    public List<Flower> findAllByTitleContainsIgnoreCase(String title) {
+        return flowerDAO.findAllByTitleContainsIgnoreCase(title);
+    }
+
+
 }
 

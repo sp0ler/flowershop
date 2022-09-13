@@ -8,6 +8,7 @@ import ru.deevdenis.flowershop.models.Category;
 import ru.deevdenis.flowershop.models.Flower;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FlowerDAO extends JpaRepository<Flower, Integer> {
@@ -20,5 +21,9 @@ public interface FlowerDAO extends JpaRepository<Flower, Integer> {
     void deleteById(int id);
 
     List<Flower> findAllByCategoryName(String categoryName);
+
+    List<Flower> findAllByTitle(String title);
+
+    List<Flower> findAllByTitleContainsIgnoreCase(String title);
 
 }
