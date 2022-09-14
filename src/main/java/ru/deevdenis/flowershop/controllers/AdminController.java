@@ -88,7 +88,6 @@ public class AdminController {
         Category category = categoryService.getCategoryByCategoryNameEng(flower.getCategoryName());
         if (category != null) flower.setCategory(category);
 
-        //List<FlowerImages> imagesList = flower.getFlowerImagesList();
         for (int i = 0; i < multipartFiles.size() - 1; i++) {
             MultipartFile multipartFile = multipartFiles.get(i);
             File uploadDir = new File(uploadPath);
@@ -107,7 +106,7 @@ public class AdminController {
                 flowerImagesService.save(image);
             }
         }
-        //flower.setFlowerImagesList(imagesList);
+
         flowerService.saveFlower(flower);
 
         return "redirect:/admin";
@@ -125,7 +124,6 @@ public class AdminController {
         Map<String, String> categoryMap = new HashMap<>();
         for (Category category1 : category) {
             categoryMap.put(category1.getCategoryName(), category1.getCategoryName());
-            //category1.addFlowerToCategory(flower);
         }
         model.addAttribute("allCategory", categoryMap);
 
@@ -134,11 +132,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/deleteFlower/{id}")
     public String deleteFlower(@PathVariable int id) {
-//        flowerImagesService.delete(id);
-//        flowerService.delete(id);
-
         flowerService.deleteById(id);
-
         return "redirect:/admin";
     }
 
@@ -149,9 +143,6 @@ public class AdminController {
         model.addAttribute("id", category.getId());
         model.addAttribute("categoryName", "");
         model.addAttribute("categoryNameEng", "");
-
-        //File file = new File(System.getProperty("user.dir") + "/webapp/resources/images/");
-        //model.addAttribute("files", file.listFiles());
 
         return "new-category";
     }

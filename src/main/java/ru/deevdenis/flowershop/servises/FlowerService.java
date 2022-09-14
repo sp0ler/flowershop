@@ -13,11 +13,9 @@ public interface FlowerService {
 
     Flower getFlower(int id);
 
-    void delete(int id);
-
     void deleteById(int id);
 
-    List<Flower> getFlowersByCategory(String categoryName);
+    List<Flower> findAllByCategoryName(String categoryName);
 
     List<Flower> findAllByTitleContainsIgnoreCase(String title);
 }

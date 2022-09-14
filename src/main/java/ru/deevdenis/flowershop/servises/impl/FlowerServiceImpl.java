@@ -42,19 +42,14 @@ public class FlowerServiceImpl implements FlowerService {
 
     @Override
     @Transactional
-    public void delete(int id) {
-        flowerDAO.delete(id);
-    }
-
-    @Override
     public void deleteById(int id) {
         flowerDAO.deleteById(id);
     }
 
     @Override
     @Transactional
-    public List<Flower> getFlowersByCategory(String categoryName) {
-        return flowerDAO.getFlowersByCategory(categoryName);
+    public List<Flower> findAllByCategoryName(String categoryName) {
+        return flowerDAO.findAllByCategoryName(categoryName);
     }
 
     @Override
