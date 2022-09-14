@@ -42,7 +42,8 @@ public class MainController {
     private String cookie;
     private String username;
     private int numberCart = -1;
-    private int numberWishlist = -1;;
+    private int numberWishlist = -1;
+    private List<Cart> cart;
 
 
     private String getCookies(HttpServletRequest req) {
@@ -77,8 +78,10 @@ public class MainController {
             );
 
             numberCart = list.size();
+            cart = list;
         } else {
-            numberCart = cartService.findAllByCookie(getCookies(req)).size();
+            cart = cartService.findAllByCookie(getCookies(req));
+            numberCart = cart.size();
         }
 
         return numberCart;
@@ -174,8 +177,21 @@ public class MainController {
 
         model.addAttribute("numberCart", getCountItemsInCart(req));
         model.addAttribute("numberWishlist", getCountItemsInWishlist(req));
+        model.addAttribute("cartItems", cart);
 
         return "cart";
+    }
+
+    @RequestMapping(value = "/deleteFlowerFromCart", method = RequestMethod.GET)
+    //@ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    //public void deleteFlowerFromCart(@RequestParam("cartItemId") long id) {
+    public void deleteFlowerFromCart(@RequestParam("id") String data) {
+        int id = Integer.parseInt(data);
+        for (Cart currentCart: cart) {
+            if (currentCart.getId() == id) cartService.deleteById(id);
+        }
+
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)

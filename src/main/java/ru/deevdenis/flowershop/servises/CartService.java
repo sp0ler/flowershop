@@ -20,4 +20,6 @@ public interface CartService {
     List<Cart> findAllByCookie(String cookie);
 
     void saveAll(List<Cart> list);
+
+    void deleteById(long id);
 }

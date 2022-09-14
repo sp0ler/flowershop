@@ -18,4 +18,6 @@ public interface CartDAO extends JpaRepository<Cart, Long> {
     List<Cart> findAllByCookie(String cookie);
 
     Optional<Cart> findByCookie(String cookie);
+
+    void deleteById(long id);
 }

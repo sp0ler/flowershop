@@ -150,57 +150,57 @@
 <section class="container product-item my-5 pt-5">
     <iframe name="flower" id="flower" style="display: none;"></iframe>
     <form method="post" action="/cart" target="flower" id="flower" name="flower">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-            <li class="breadcrumb-item"><a href="/category/${flower.getCategory().getCategoryNameEng()}">${flower.getCategory().getCategoryName()}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">${flower.title}</li>
-        </ol>
-    </nav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item"><a href="/category/${flower.getCategory().getCategoryNameEng()}">${flower.getCategory().getCategoryName()}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">${flower.title}</li>
+            </ol>
+        </nav>
 
-    <div class="row mt-5">
-        <div class="col-lg-5 col-md-12 col-12 pb-1">
-            <#list images as image>
-                <#if image.preview>
-                    <img class= "img-fluid w-100 pb-1" src="/resources/images/product-9.png" id="MainImg" alt="">
-                </#if>
-            </#list>
-
-
-            <div class="small-img-group">
+        <div class="row mt-5">
+            <div class="col-lg-5 col-md-12 col-12 pb-1">
                 <#list images as image>
-                    <#if !image.preview>
-                        <div class="small-img-col">
-                            <img class= "small-img" width="100%" src="/resources/images/${image.nameImage}" alt="">
-                        </div>
+                    <#if image.preview>
+                        <img class= "img-fluid w-100 pb-1" src="/resources/images/product-9.png" id="MainImg" alt="">
                     </#if>
                 </#list>
 
+
+                <div class="small-img-group">
+                    <#list images as image>
+                        <#if !image.preview>
+                            <div class="small-img-col">
+                                <img class= "small-img" width="100%" src="/resources/images/${image.nameImage}" alt="">
+                            </div>
+                        </#if>
+                    </#list>
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-12">
+                <br><br><br>
+                <h3 class="font-size-h3">${flower.title}</h3>
+                <br><br>
+                <h2 class="font-size-h2">${flower.price} ₽</h2>
+
+
+    <#--                <button class="btn font-size">В корзину</button>-->
+                <input class="btn font-size" type="submit" value="В корзину" onclick="incrementCart()">
+                <button class="wishlist" href="#" onclick="incrementWishlist()">
+                    <ion-icon class="ion-icon" size="large" name="heart-outline"></ion-icon>
+                <#--heart-sharp-->
+                </button>
+
+                <input type="hidden" name="flowerId" value="${flower.id}">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+
+                <h4 class="mt-5 font-size-h4">Описание</h4>
+                <br>
+                <span class="font-size-span">${flower.description}</span>
             </div>
         </div>
-
-        <div class="col-lg-6 col-md-12 col-12">
-            <br><br><br>
-            <h3 class="font-size-h3">${flower.title}</h3>
-            <br><br>
-            <h2 class="font-size-h2">${flower.price} ₽</h2>
-
-
-<#--                <button class="btn font-size">В корзину</button>-->
-            <input class="btn font-size" type="submit" value="В корзину" onclick="incrementCart()">
-            <button class="wishlist" href="#" onclick="incrementWishlist()">
-                <ion-icon class="ion-icon" size="large" name="heart-outline"></ion-icon>
-            <#--heart-sharp-->
-            </button>
-
-            <input type="hidden" name="flowerId" value="${flower.id}">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-
-            <h4 class="mt-5 font-size-h4">Описание</h4>
-            <br>
-            <span class="font-size-span">${flower.description}</span>
-        </div>
-    </div>
     </form>
 
 

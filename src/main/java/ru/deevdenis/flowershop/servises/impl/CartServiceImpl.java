@@ -49,6 +49,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
+    public void deleteById(long id) {
+        cartDAO.deleteById(id);
+    }
+
+    @Override
+    @Transactional
     public List<Cart> findAllByEmail(String email) {
         return cartDAO.findAllByEmail(email);
     }

@@ -94,6 +94,9 @@
         -->
         <section class="checkout">
 
+            <h2 class="section-heading">Выбор даты и времени доставки</h2>
+            <br><br><br>
+
             <h2 class="section-heading">Выбор оплаты</h2>
 
             <div class="payment-form">
@@ -160,10 +163,6 @@
             </div>
 
 
-            <h2 class="section-heading">Выбор даты и времени доставки</h2>
-
-
-
             <form action="/payCard" id="buttonCard">
                 <button class="btn btn-primary buttonCard" id="buttonCard">
                     <b>Оплатить 1</b> $ <span id="payAmount">2.15</span>
@@ -189,89 +188,57 @@
 
                 <h2 class="section-heading">Order Summery</h2>
 
-                <div class="product-card">
+                <#list cartItems as cartItem>
+                    <#assign flower = cartItem.getFlower()>
 
-                    <div class="card">
+                    <div class="product-card ${cartItem.id}">
 
-                        <div class="img-box">
-                            <img src="./images/green-tomatoes.jpg" alt="Green tomatoes" width="80px" class="product-img">
-                        </div>
+                        <div class="card">
 
-                        <div class="detail">
+                            <div class="img-box">
+                                <img src="/resources/images/product-1.png" alt="Green tomatoes" width="80px" class="product-img">
+                            </div>
 
-                            <h4 class="product-name">Green Tomatoes 1 Kilo</h4>
+                            <div class="detail">
 
-                            <div class="wrapper">
+                                <h4 class="product-name">${flower.title}</h4>
 
-                                <div class="product-qty">
-                                    <button id="decrement">
-                                        <ion-icon name="remove-outline"></ion-icon>
-                                    </button>
+                                <div class="wrapper">
 
-                                    <span id="quantity">1</span>
+                                    <div class="product-qty">
+                                        <button id="decrement">
+                                            <ion-icon name="remove-outline"></ion-icon>
+                                        </button>
 
-                                    <button id="increment">
-                                        <ion-icon name="add-outline"></ion-icon>
-                                    </button>
-                                </div>
+                                        <span id="quantity">1</span>
 
-                                <div class="price">
-                                    $ <span id="price">1.25</span>
+                                        <button id="increment">
+                                            <ion-icon name="add-outline"></ion-icon>
+                                        </button>
+                                    </div>
+
+                                    <div class="price">
+                                        <span id="price">#{flower.price}</span> ₽
+                                    </div>
+
                                 </div>
 
                             </div>
 
+                            <iframe name="deleteFlowerFromCart" id="deleteFlowerFromCart" style="display: none;"></iframe>
+                            <form action="/deleteFlowerFromCart" method="post" target="deleteFlowerFromCart" id="delete ${cartItem.id}">
+                                <button class="product-close-btn" formmethod="post" type="submit">
+                                    <ion-icon name="close-outline"></ion-icon>
+                                    <input type="hidden" >
+                                </button>
+                                <input type="hidden" name="cartItemId" value="${cartItem.id}"/>
+                                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            </form>
+
                         </div>
-
-                        <button class="product-close-btn">
-                            <ion-icon name="close-outline"></ion-icon>
-                        </button>
-
                     </div>
 
-                </div>
-
-                <div class="product-card">
-
-                    <div class="card">
-
-                        <div class="img-box">
-                            <img src="./images/cabbage.jpg" alt="Cabbage" width="80px" class="product-img">
-                        </div>
-
-                        <div class="detail">
-
-                            <h4 class="product-name">Cabbage 1 Pcs</h4>
-
-                            <div class="wrapper">
-
-                                <div class="product-qty">
-                                    <button id="decrement">
-                                        <ion-icon name="remove-outline"></ion-icon>
-                                    </button>
-
-                                    <span id="quantity">1</span>
-
-                                    <button id="increment">
-                                        <ion-icon name="add-outline"></ion-icon>
-                                    </button>
-                                </div>
-
-                                <div class="price">
-                                    $ <span id="price">0.80</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <button class="product-close-btn">
-                            <ion-icon name="close-outline"></ion-icon>
-                        </button>
-
-                    </div>
-
-                </div>
+                </#list>
 
             </div>
 
@@ -374,6 +341,35 @@
         payCash[0].className = "method payCash selected";
 
     }
+
+    function decrementCart() {
+        const cartElem = document.getElementById('cart');
+        let increment = Number(cartElem.textContent);
+        increment--;
+        cartElem.textContent = String(increment);
+    }
+
+    function deleteDiv(id) {
+        const elements = document.getElementsByClassName('product-card ' + id);
+        while(elements.length > 0){
+            elements[0].parentNode.removeChild(elements[0]);
+        }
+
+        // TODO
+        // decrementCart()
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', '/deleteFlowerFromCart?id=' + id, true);
+        xhr.send(null);
+    }
+
+    <#list cartItems as cartItem>
+        let element${cartItem.id} = document.getElementById("delete ${cartItem.id}");
+        element${cartItem.id}.onclick = function () {
+            deleteDiv(${cartItem.id});
+        }
+    </#list>
+
 </script>
 
 </body>
